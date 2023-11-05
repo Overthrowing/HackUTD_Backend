@@ -17,7 +17,7 @@ class Patient(models.Model):
     # address = models.TextField(blank=True, null=True)
 
     # Medical Information
-    diagnosis = models.CharField(max_length=100, lank=True, null=True)
+    diagnosis = models.CharField(max_length=100, blank=True, null=True)
     # medical_history = models.TextField(blank=True, null=True)
     # medications = models.TextField(blank=True, null=True)
     # allergies = models.TextField(blank=True, null=True)
