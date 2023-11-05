@@ -34,7 +34,7 @@ class Doctor(models.Model):
     # General Information
     medical_specialization = models.CharField(max_length=256)
     hospital = models.CharField(max_length=256)
-    years_of_experience = modes.PositiveIntegerField()
+    years_of_experience = models.PositiveIntegerField()
 
     # Contact Information
     email = models.EmailField(blank=True, null=True)
