@@ -19,7 +19,7 @@ class Patient(models.Model):
     # allergies = models.TextField(blank=True, null=True)
     
     # Relationships
-    # primary_doctor = models.ForeignKey('Doctor', on_delete=models.SET_NULL, blank=True, null=True)
+    primary_doctor = models.ForeignKey('Doctor', on_delete=models.SET_NULL, blank=True, null=True)
     # room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True)
     # appointments = models.ManyToManyField('Appointment', blank=True)
 
