@@ -10,3 +10,10 @@ class Patients(APIView):
         patients = Patient.objects.all()
         serializer = PatientSerializer(patients, many=True)
         return Response(serializer.data)
+
+
+class PatientView(APIView):
+    def get(self, request, id):
+        patient = Patient.objects.get(id=id)
+        serializer = PatientSerializer(patient)
+        return Response(serializer.data)
