@@ -17,6 +17,7 @@ class Patient(models.Model):
     # address = models.TextField(blank=True, null=True)
 
     # Medical Information
+    diagnosis = models.CharField(blank=True, null=True)
     # medical_history = models.TextField(blank=True, null=True)
     # medications = models.TextField(blank=True, null=True)
     # allergies = models.TextField(blank=True, null=True)
@@ -28,7 +29,6 @@ class Patient(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
-
 
 class Doctor(models.Model):
     # Personal Information
@@ -46,7 +46,9 @@ class Doctor(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}: {self.medical_specialization}'
 
-
+class WheelChair(models.Model):
+    #assigned_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True)
+    current_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True, related_name='chair')
     
 class Room(models.Model):
     # General Room information
