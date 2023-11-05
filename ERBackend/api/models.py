@@ -17,18 +17,27 @@ class Patient(models.Model):
     # address = models.TextField(blank=True, null=True)
 
     # Medical Information
-    diagnosis = models.CharField(blank=True, null=True)
+    diagnosis = models.CharField(max_lenght=10000, blank=True, null=True)
     # medical_history = models.TextField(blank=True, null=True)
     # medications = models.TextField(blank=True, null=True)
     # allergies = models.TextField(blank=True, null=True)
-    
+
     # Relationships
-    primary_doctor = models.ForeignKey('Doctor', on_delete=models.SET_NULL, blank=True, null=True)
-    room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True, related_name="patients")
+    primary_doctor = models.ForeignKey(
+        "Doctor", on_delete=models.SET_NULL, blank=True, null=True
+    )
+    room = models.ForeignKey(
+        "Room",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+        related_name="patients",
+    )
     # appointments = models.ManyToManyField('Appointment', blank=True)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
 
 class Doctor(models.Model):
     # Personal Information
@@ -44,12 +53,16 @@ class Doctor(models.Model):
     email = models.EmailField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}: {self.medical_specialization}'
+        return f"{self.first_name} {self.last_name}: {self.medical_specialization}"
+
 
 class WheelChair(models.Model):
-    #assigned_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True)
-    current_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True, related_name='chair')
-    
+    # assigned_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True)
+    current_room = models.ForeignKey(
+        "Room", on_delete=models.SET_NULL, blank=True, null=True, related_name="chair"
+    )
+
+
 class Room(models.Model):
     # General Room information
     capacity = models.PositiveIntegerField()
@@ -63,5 +76,4 @@ class Room(models.Model):
     is_patient_room = models.BooleanField(default=True)
 
     def __str__(self):
-        return f'Room, Capacity: {self.capacity}'
-
+        return f"Room, Capacity: {self.capacity}"
