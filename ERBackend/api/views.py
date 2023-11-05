@@ -17,3 +17,10 @@ class PatientView(APIView):
         patient = Patient.objects.get(id=id)
         serializer = PatientSerializer(patient)
         return Response(serializer.data)
+    def post(self, request):
+        print(request)
+        serializer = PatientSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
