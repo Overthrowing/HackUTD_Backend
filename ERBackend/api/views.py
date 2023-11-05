@@ -46,3 +46,8 @@ class DoctorView(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors)
+
+
+class AddPatient(APIView):
+    def post(self, request):
+        pass
