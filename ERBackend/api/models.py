@@ -24,3 +24,21 @@ class Patient(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+    
+
+# class Room(models.Model):
+#     # Room Information
+#     room_number = models.CharField(max_length=10, unique=True)
+#     room_type = models.CharField(max_length=50, choices=[('Single', 'Single Room'), ('Double', 'Double Room'), ('ICU', 'Intensive Care Unit')])
+
+#     # Status
+#     is_occupied = models.BooleanField(default=False)
+#     occupancy_start_date = models.DateField(blank=True, null=True)
+#     occupancy_end_date = models.DateField(blank=True, null=True)
+
+#     # Bed Capacity
+#     total_beds = models.PositiveIntegerField()
+#     available_beds = models.PositiveIntegerField()
+
+#     def __str__(self):
+#         return f'Room {self.room_number}'
