@@ -1,16 +1,12 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from models import *
+from .models import *
+from .serializers import *
 
 # Create your views here.
-class PatientView(APIView):
+class Patients(APIView):
     def get(self, request):
-        response = Response()
-        response.data = Patient.objects.all().values()
-        return response
-    def post(self, request):
-        response = Response()
-        response.data = Patient.objects.create(**request.data)
-        return response
-        
+        patients = Patient.objects.all()
+        serializer = PatientSerializer(patients, many=True)
+        return Response(serializer.data)
