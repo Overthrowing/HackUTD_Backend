@@ -57,7 +57,7 @@ class RoomCheckIn(APIView):
     def post(self, request):
         raw_room_id = request.data['room_id']
         patient_id = request.data['patient_id']
-        room = get_object_or_404(Room, id=base64.b64decode(raw_room_id)-100000)
+        room = get_object_or_404(Room, id=raw_room_id)
         patient = get_object_or_404(Patient, id=patient_id)
         patient.room = room
         return Response(status=200)
