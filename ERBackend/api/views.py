@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import *
 from .serializers import *
-
+import base64
 
 # Create your views here.
 class Patients(APIView):
@@ -51,3 +51,13 @@ class DoctorView(APIView):
 class AddPatient(APIView):
     def post(self, request):
         pass
+
+
+class RoomCheckIn(APIView):
+    def post(self, request):
+        raw_room_id = request.data['room_id']
+        patient_id = request.data['patient_id']
+        room = get_object_or_404(Room, id=base64.b64decode(raw_room_id)-100000)
+        patient = get_object_or_404(Patient, id=patient_id)
+        patient.room = room
+        return Response(status=200)
