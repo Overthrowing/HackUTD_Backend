@@ -24,8 +24,17 @@ class Patient(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
-    
 
+class Doctor(models.Model):
+    # Personal Information
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+
+    # Contact Information
+    email = models.EmailField(blank=True, null=True)
+
+
+    
 # class Room(models.Model):
 #     # Room Information
 #     room_number = models.CharField(max_length=10, unique=True)
