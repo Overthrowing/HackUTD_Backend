@@ -48,10 +48,11 @@ class DoctorView(APIView):
         return Response(serializer.errors)
 
 
-class AddPatient(APIView):
-    def post(self, request):
-        pass
-
+class Rooms(APIView):
+    def get(self, request):
+        rooms = Room.objects.all()
+        serializer = RoomSerializer(rooms, many=True)
+        return Response(serializer.data)
 
 class RoomCheckIn(APIView):
     def post(self, request):
@@ -62,3 +63,50 @@ class RoomCheckIn(APIView):
         patient.room = room
         patient.save()
         return Response(status=200)
+    
+
+class RegisterPatient(APIView):
+    def post(self, request):
+        raw_image_data = request.data['image']
+        # OCR Image
+        patient = Patient.objects.get_or_create(id=1)
+        patient.first_name = "Tricera"
+        patient.last_name = "Tops"
+        patient.gender = "F"
+        patient.age = 67000000
+        patient.save()
+        return Response(PatientSerializer(patient).data)
+    
+
+class RenderRoom(APIView):
+    def get(self, request, room_id):
+        room = get_object_or_404(Room, id=room_id+1)
+        serializer = RoomSerializer(room)
+        out = serializer.data
+        match serializer.data['priority']:
+            case "H":
+                out['color'] = "#DB5461"
+            case "M":
+                out['color'] = "#EDEBA0"
+            case "L":
+                out['color'] = "#D1EFB5"
+
+
+        # Wheelchairs
+        wheelchairs = room.chairs.all()
+        serializer = WheelChairSerializer(wheelchairs, many=True)
+        out['wheelchairs'] = serializer.data
+
+        # Patients
+        patients = room.patients.all()
+        serializer = PatientSerializer(patients, many=True)
+        out['patients'] = serializer.data
+        
+        return Response(out)
+    
+class FindWheelChairs(APIView):
+    def get(self, request, room_id):
+        room = get_object_or_404(Room, id=room_id+1)
+        wheelchairs = room.chairs.all()
+        serializer = WheelChairSerializer(wheelchairs, many=True)
+        return Response(serializer.data)

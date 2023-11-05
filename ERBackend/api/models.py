@@ -6,15 +6,15 @@ class Patient(models.Model):
     # Personal Information
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(default="0001-01-01")
     gender = models.CharField(
         max_length=10, choices=[("M", "Male"), ("F", "Female"), ("O", "Other")]
     )
 
     # Contact Information
-    # email = models.EmailField(blank=True, null=True)
-    # phone_number = models.CharField(max_length=20, blank=True, null=True)
-    # address = models.TextField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    address = models.TextField(blank=True, null=True)
 
     # Medical Information
     diagnosis = models.CharField(max_length=100, blank=True, null=True)
@@ -48,7 +48,12 @@ class Doctor(models.Model):
 
 class WheelChair(models.Model):
     #assigned_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True)
-    current_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True, related_name='chair')
+    current_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True, related_name='chairs')
+    x_pos = models.IntegerField(default=0)
+    y_pos = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'WheelChair, Current Room: {self.current_room}'
     
 class Room(models.Model):
     # General Room information

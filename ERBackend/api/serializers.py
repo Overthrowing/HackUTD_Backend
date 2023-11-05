@@ -18,3 +18,8 @@ class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = Room
         fields = "__all__"
+
+class WheelChairSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WheelChair
+        fields = "__all__"
