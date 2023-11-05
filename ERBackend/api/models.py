@@ -20,6 +20,7 @@ class Patient(models.Model):
     
     # Relationships
     # primary_doctor = models.ForeignKey('Doctor', on_delete=models.SET_NULL, blank=True, null=True)
+    # room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True)
     # appointments = models.ManyToManyField('Appointment', blank=True)
 
     def __str__(self):
@@ -30,8 +31,16 @@ class Doctor(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 
+    # General Information
+    medical_specialization = models.CharField(max_length=256)
+    hospital = models.CharField(max_length=256)
+    years_of_experience = modes.PositiveIntegerField()
+
     # Contact Information
     email = models.EmailField(blank=True, null=True)
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}: {self.medical_specialization}'
 
 
     
