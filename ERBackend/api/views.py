@@ -60,4 +60,5 @@ class RoomCheckIn(APIView):
         room = get_object_or_404(Room, id=raw_room_id)
         patient = get_object_or_404(Patient, id=patient_id)
         patient.room = room
+        patient.save()
         return Response(status=200)
