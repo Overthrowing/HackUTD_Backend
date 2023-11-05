@@ -55,5 +55,5 @@ class Room(models.Model):
     is_patient_room = models.BooleanField(default= True)
 
     def __str__(self):
-        return f'Room, Capacity: {capacity}'
+        return f'Room, Capacity: {self.capacity}'
 
