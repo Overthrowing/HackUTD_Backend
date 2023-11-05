@@ -17,10 +17,11 @@ class Patient(models.Model):
     # medical_history = models.TextField(blank=True, null=True)
     # medications = models.TextField(blank=True, null=True)
     # allergies = models.TextField(blank=True, null=True)
+    # needs_wheel_chair = models.BooleanField(default=False)
     
     # Relationships
     primary_doctor = models.ForeignKey('Doctor', on_delete=models.SET_NULL, blank=True, null=True)
-    room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True, related_name="patients")
+    room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True, related_name='patients')
     # appointments = models.ManyToManyField('Appointment', blank=True)
 
     def __str__(self):
@@ -34,7 +35,7 @@ class Doctor(models.Model):
     # General Information
     medical_specialization = models.CharField(max_length=256)
     hospital = models.CharField(max_length=256)
-    years_of_experience = modes.PositiveIntegerField()
+    years_of_experience = models.PositiveIntegerField()
 
     # Contact Information
     email = models.EmailField(blank=True, null=True)
@@ -42,7 +43,9 @@ class Doctor(models.Model):
     def __str__(self):
         return f'{self.first_name} {self.last_name}: {self.medical_specialization}'
 
-
+class WheelChair(models.Model):
+    current_room = models.ForeignKey('Room', on_delete=models.SET_NULL, blank=True, null=True, related_name='chairs')
+    assigned_room = models.OneToOneField('Room')
     
 class Room(models.Model):
     # General Room information
@@ -55,5 +58,5 @@ class Room(models.Model):
     is_patient_room = models.BooleanField(default= True)
 
     def __str__(self):
-        return f'Room, Capacity: {self.capacity}'
+        return f'Room, Capacity: {capacity}'
 
